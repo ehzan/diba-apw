@@ -5,9 +5,9 @@ def puzzle3(input_file):
     data = fileHandle.readfile(input_file).strip().splitlines()
     score = 0
     for round_ in data:
-        hand1 = ord(round_[0]) - ord('A') + 1
-        hand2 = ord(round_[2]) - ord('X') + 1
-        score += hand2
+        hand1 = ord(round_[0]) - ord('A')
+        hand2 = ord(round_[2]) - ord('X')
+        score += hand2 + 1
         match hand2 - hand1:
             case 0:
                 score += 3
@@ -20,16 +20,16 @@ def puzzle4(input_file):
     data = fileHandle.readfile(input_file).strip().splitlines()
     score = 0
     for round_ in data:
-        hand1 = ord(round_[0]) - ord('A') + 1
+        hand1 = ord(round_[0]) - ord('A')
         result = ord(round_[2]) - ord('X')
         score += 3 * result
         match result:
             case 0:  # lose
-                score += 3 if hand1 == 1 else hand1 - 1
+                score += (hand1 - 1) % 3 + 1
             case 1:  # draw
-                score += hand1
+                score += hand1 + 1
             case 2:  # win
-                score += 1 if hand1 == 3 else hand1 + 1
+                score += (hand1 + 1) % 3 + 1
     return score
 
 

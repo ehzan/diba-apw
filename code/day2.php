@@ -29,5 +29,32 @@ function puzzle3($input_file)
     return $total_score;
 }
 
+function puzzle4($input_file)
+{
+    $data = read_file($input_file);
+    $data = trim($data);
+    $rounds = explode("\n", $data);
+    $dict = ['A' => 1, 'B' => 2, 'C' => 3,];
+    $total_score = 0;
+    foreach ($rounds as $rnd) {
+        $hand1 = $dict[$rnd[0]];
+        $result = $rnd[2];
+        switch ($result) {
+            case 'X': // lose
+                $score = 0 + ($hand1 == 1 ? 3 : $hand1 - 1);
+                break;
+            case 'Y': // draw
+                $score = 3 + $hand1;
+                break;
+            case 'Z': // win
+                $score = 6 + ($hand1 == 3 ? 1 : $hand1 + 1);
+                break;
+        }
+        $total_score += $score;
+    }
+    return $total_score;
+}
+
 
 echo 'Day #2, part one: ' . puzzle3('./input/day2.txt') . PHP_EOL;
+echo 'Day #2, part two: ' . puzzle4('./input/day2.txt') . PHP_EOL;
