@@ -59,3 +59,6 @@ class Day2{
         }
     }
 }
+
+$s = new Day2();
+$s->solve();
