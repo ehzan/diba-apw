@@ -3,8 +3,7 @@ include 'file-handle.php';
 
 function puzzle3($input_file)
 {
-    $data = read_file($input_file);
-    $data = trim($data);
+    $data = trim(read_file($input_file));
     $rounds = explode("\n", $data);
     $dict = [
         'A' => 1, 'B' => 2, 'C' => 3,
@@ -31,8 +30,7 @@ function puzzle3($input_file)
 
 function puzzle4($input_file)
 {
-    $data = read_file($input_file);
-    $data = trim($data);
+    $data = trim(read_file($input_file));
     $rounds = explode("\n", $data);
     $dict = ['A' => 1, 'B' => 2, 'C' => 3,];
     $total_score = 0;
