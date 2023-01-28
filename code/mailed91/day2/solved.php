@@ -37,7 +37,7 @@ class Day2{
         'C,X' => 2, 'C,Y' => 6,'C,Z' => 7
     ];
   
-    public function __constructor(){
+    public function __construct(){
         $file = fopen($this->path,'r');
         $this->data = fread($file,filesize($this->path));
         fclose($file);
@@ -59,3 +59,6 @@ class Day2{
         }
     }
 }
+
+$s = new Day2();
+$s->solve();
