@@ -16,16 +16,33 @@ function puzzle5($input_file)
         $middle = strlen($rucksack) / 2;
         $part1 = substr($rucksack, 0, $middle);
         $part2 = substr($rucksack, $middle, $middle);
-        for ($i = 0; $i < strlen($part1); $i++) {
+        for ($i = 0; $i < strlen($part1); $i++)
             if (str_contains($part2, $part1[$i])) {
                 array_push($intersections, $part1[$i]);
                 break;
             }
-        }
     }
-    $intersections = array_map('priority', $intersections);
-    return array_sum($intersections);
+    $priorities = array_map('priority', $intersections);
+    return array_sum($priorities);
 }
 
 
-echo 'Day #3, part one: ' . puzzle5('./input/day3.txt') . PHP_EOL;
+function puzzle6($input_file)
+{
+    $data = trim(read_file($input_file));
+    $rucksacks = preg_split('/\r?\n/', $data);
+    $intersections = [];
+    for ($i = 0; $i < sizeof($rucksacks); $i += 3)
+        for ($j = 0; $j < strlen($rucksacks[$i]); ++$j) {
+            $ch = $rucksacks[$i][$j];
+            if (str_contains($rucksacks[$i + 1], $ch) && str_contains($rucksacks[$i + 2], $ch)) {
+                array_push($intersections, $ch);
+                break;
+            }
+        }
+    $priorities = array_map('priority', $intersections);
+    return array_sum($priorities);
+}
+
+echo 'Day3, part one: ' . puzzle5('./input/day3.txt') . PHP_EOL;
+echo 'Day3, part two: ' . puzzle6('./input/day3.txt') . PHP_EOL;
