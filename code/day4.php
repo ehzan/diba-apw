@@ -1,6 +1,7 @@
 <?php
 include 'file-handle.php';
 
+
 function puzzle7($input_file)
 {
     $data = trim(read_file($input_file));

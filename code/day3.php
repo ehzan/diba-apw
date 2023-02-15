@@ -1,6 +1,7 @@
 <?php
 include 'file-handle.php';
 
+
 function priority($char)
 {
     return ctype_lower($char) ?
