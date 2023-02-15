@@ -10,7 +10,7 @@ function priority($char)
 function puzzle5($input_file)
 {
     $data = trim(read_file($input_file));
-    $rucksacks = preg_split('/\r?\n/', $data);
+    $rucksacks = explode("\n", $data);
     $intersections = [];
     foreach ($rucksacks as $rucksack) {
         $middle = strlen($rucksack) / 2;
@@ -30,7 +30,7 @@ function puzzle5($input_file)
 function puzzle6($input_file)
 {
     $data = trim(read_file($input_file));
-    $rucksacks = preg_split('/\r?\n/', $data);
+    $rucksacks = explode("\n", $data);
     $intersections = [];
     for ($i = 0; $i < sizeof($rucksacks); $i += 3)
         for ($j = 0; $j < strlen($rucksacks[$i]); ++$j) {
@@ -44,5 +44,6 @@ function puzzle6($input_file)
     return array_sum($priorities);
 }
 
-echo 'Day3, part one: ' . puzzle5('./input/day3.txt') . PHP_EOL;
-echo 'Day3, part two: ' . puzzle6('./input/day3.txt') . PHP_EOL;
+
+echo 'Day #3, part one: ' . puzzle5('./input/day3.txt') . PHP_EOL;
+echo 'Day #3, part two: ' . puzzle6('./input/day3.txt') . PHP_EOL;
