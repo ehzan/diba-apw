@@ -1,9 +1,10 @@
 <?php
 include 'file-handle.php';
 
+
 function puzzle1($input_file)
 {
-    $data = read_file($input_file);
+    $data = trim(read_file($input_file));
     $food_lists = preg_split("/(\r?\n){2}/", $data);
     $max = 0;
     foreach ($food_lists as $food_list_string) {
@@ -24,8 +25,8 @@ function swap(&$val1, &$val2)
 
 function puzzle2($input_file)
 {
-    $data = read_file($input_file);
-    $food_lists = explode("\n\n", $data);
+    $data = trim(read_file($input_file));
+    $food_lists = preg_split("/(\r?\n){2}/", $data);
     $max1 = 0;
     $max2 = 0;
     $max3 = 0;
@@ -41,6 +42,7 @@ function puzzle2($input_file)
     }
     return $max1 + $max2 + $max3;
 }
+
 
 echo 'Day #1, part one: ' . puzzle1('.\input\day1.txt') . PHP_EOL;
 echo 'Day #1, part two: ' . puzzle2('.\input\day1.txt') . PHP_EOL;

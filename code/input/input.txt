@@ -1,14 +1,9 @@
-1000
-2000
-3000
+    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
 
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2
