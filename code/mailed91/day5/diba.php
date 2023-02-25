@@ -4,53 +4,54 @@ include_once '../Input.class.php';
 
 $input = Input::content(5);
 
-[$boxes,$commands] = preg_split('/(\r?\n){2}/',$input);
+[$strStacks,$strInstructions] = preg_split('/(\r?\n){2}/',$input);
 
-$boxes = explode("\n",$boxes);
+$strStacks = explode("\n",$strStacks);
 
 // get array of boxes
-$boxRows = [];
-foreach($boxes as $str){
-    $arr = str_split($str,4);
-    foreach($arr as $key => $item){
-        preg_match('/[a-zA-Z]/',$item,$string);
-        $val = reset($string);
-        if(!empty($val)) 
-            !empty($boxRows[$key+1]) ? array_unshift($boxRows[$key+1],$val) : $boxRows[$key+1][] = $val;
+$stacks = [];
+foreach($strStacks as $strStack){
+    $arrayStack = str_split($strStack,4);
+    foreach($arrayStack as $key => $item){
+        preg_match('/[a-zA-Z]/',$item,$stack_matches);
+        $stack = reset($stack_matches);
+        if(!empty($stack)) 
+            !empty($stacks[$key+1]) ? array_unshift($stacks[$key+1],$stack) : $stacks[$key+1][] = $stack;
     }
 }
-ksort($boxRows,SORT_NUMERIC);
+ksort($stacks,SORT_NUMERIC);
+
 // get array of command
-$commands = explode("\n",trim($commands));
-$commandRows = [];
-foreach($commands as $key => $str){
-    preg_match_all('/(.*?)\s\d+/',$str,$string2);
-    foreach(reset($string2) as $item){
-        [$move,$num] = explode(' ',trim($item));
-        $commandRows[$key][$move] = $num;
+$arrayInstructions = explode("\n",trim($strInstructions));
+$instructions = [];
+foreach($arrayInstructions as $key => $instruction){
+    preg_match_all('/(.*?)\s\d+/',$instruction,$instruct_matches);
+    foreach(reset($instruct_matches) as $item){
+        [$command,$num] = explode(' ',trim($item));
+        $instructions[$key][$command] = $num;
     }
 }
 
-
-foreach($commandRows as $command){
-    $move = $command['move'];
-    $from = $command['from'];
-    $to = $command['to'];
-
-    // print_r([$move,$from,$to]);
-
-    $slice = array_slice($boxRows[$from],-(int)$move);
-    krsort($slice,SORT_NUMERIC);
-    array_splice($boxRows[$from],count($boxRows[$from]) - $move,$move);
-    $boxRows[$to] = array_merge($boxRows[$to],$slice);
+foreach($instructions as $instaruct){
+    $move = $instaruct['move'];
+    $from = $instaruct['from'];
+    $to = $instaruct['to'];
+    for($i=0;$move>$i;$i++){
+        // $item = $stacks[$from][count($stacks[$from])-1];
+        // unset($stacks[$from][count($stacks[$from])-1]);
+        // $stacks[$from] = array_values($stacks[$from]);
+        $item = array_pop($stacks[$from]);
+        array_push($stacks[$to],$item);
+    }
+    // $slice = array_slice($stacks[$from],-(int)$move);
+    // krsort($slice,SORT_NUMERIC);
+    // array_splice($stacks[$from],count($stacks[$from]) - $move,$move);
+    // $stacks[$to] = array_merge($stacks[$to],$slice);
 }
-
-// print_r($boxRows);
-// exit;
 
 $result = '';
-foreach($boxRows as $row){
-    $result .= end($row);
+foreach($stacks as $stack){
+    $result .= end($stack);
 }
 print_r($result.PHP_EOL);
 // FWNSHLDNZ

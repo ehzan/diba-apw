@@ -10,4 +10,5 @@ $stacker2 = new Solve(Input::content($day));
 
 // part 1:
 echo $stacker->calculate() . PHP_EOL;
+// part 2:
 echo $stacker2->calculate(true) . PHP_EOL;
