@@ -1,23 +1,20 @@
 <?php
 include 'file-handle.php';
 
+
 function retrieve_stacks($strStacks)
 {
     $lines = explode("\n", $strStacks);
     $last_line = array_pop($lines);
     $number_of_stacks = preg_match_all('/\d+/', $last_line);
     $stacks = array_fill(1, $number_of_stacks, []);
-    // for ($i = sizeof($lines) - 1; $i >= 0; --$i)
-    //     for ($j = 1; $j < strlen($lines[$i]); $j += 4)
-    //         if ($lines[$i][$j] != ' ') {
-    //             array_push($stacks[intdiv($j, 4) + 1], $lines[$i][$j]);
-    //         }
     $lines = array_reverse($lines);
     foreach ($lines as $line) {
-        for ($stack_index = 1, $char_index = 1; $char_index < strlen($line); $stack_index++, $char_index += 4)
-            if ($line[$char_index] != ' ') {
-                array_push($stacks[$stack_index], $line[$char_index]);
-            }
+        preg_match_all('/[\[ ](\w+| )[\] ]\s?/', $line, $matches);
+        foreach ($matches[1] as $key => $item) {
+            if ($item != ' ')
+                array_push($stacks[$key + 1], $item);
+        }
     }
     return ($stacks);
 }
