@@ -23,12 +23,12 @@ function puzzle12($input_file)
 	$data = read_file($input_file);
 	$input = str_split($data);
 	$result = false;
-	for($packet_marker_pos = 0; $packet_marker_pos < count($input); $packet_marker_pos++)
+	for($message_marker_pos = 0; $message_marker_pos < count($input); $message_marker_pos++)
 	{ 
-	    $char_marker = array_slice($input, $packet_marker_pos, 14);
+	    $char_marker = array_slice($input, $message_marker_pos, 14);
 		if(checkForMarker($char_marker))
 		{
-			$result = $packet_marker_pos + 14;
+			$result = $message_marker_pos + 14;
 			break;
 		}
 	}
